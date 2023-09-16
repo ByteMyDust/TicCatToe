@@ -1,6 +1,6 @@
-# Phaser 3 TypeScript - TEMPLATE
+# Phaser 3 TypeScript - Tic-Tac-Toe
 
-A Phaser 3 TypeScript example TEMPLATE.
+A Phaser 3 implementation of the game Tic-Tac-Toe.
 
 ## Local Development
 
@@ -39,3 +39,10 @@ you should be able to open `http://myserver.com/index.html` and play your game.
 ### Static Assets
 
 Any static assets like images or audio files should be placed in the `public` folder. It'll then be served at `http://localhost:8080/path-to-file-your-file/file-name.file-type`.
+
+## Ideas for improvements
+
+- add validation logic to tic tac toe class for input
+- create npm package of tic tac toe class
+- add simple CPU
+- add basic metrics for tracking number of wins, loses, and draws
