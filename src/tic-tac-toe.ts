@@ -16,18 +16,21 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   scene: Phaser.Scene;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   private selectedPiece;
+  private allSelectedPieces : Set<[]>;
   // public scale: number;
-  public piecesClicked: Set;
+  public pieceSize : number;
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    this.x = screen.width / 2 - 400
-    this.y = screen.height / 2 - 500
+    console.log(this.x,this.y)
+    this.pieceSize = 96;
+    this.x = screen.width/2 - this.pieceSize*2
+    this.y = screen.height/2 - this.pieceSize*2.5
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
-    this.piecesClicked = new Set();
+    this.allSelectedPieces = new Set()
 
     this.#initializeBoard();
   }
@@ -42,18 +45,22 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     //   .setOrigin(0.5);
 
     this.#playerTurnTextGameObject = this.scene.add
-      .text(240, 600, 'X turn', {
+      .text(this.x + 2*this.pieceSize, this.y+ 4.5*this.pieceSize, 'X turn', {
         color: 'white',
         fontFamily: 'Verdana',
         fontSize: '22px',
       })
       .setOrigin(0.5);
 
-    this.lineStyle(12, 0xffffff);
-    this.lineBetween(170, 120, 170, 540);
-    this.lineBetween(314, 120, 314, 540);
-    this.lineBetween(30, 258, 450, 258);
-    this.lineBetween(30, 402, 450, 402);
+    this.lineStyle(6, 0xffffff);
+    //left vertical
+    this.lineBetween(this.pieceSize*5/4, 0, this.pieceSize*5/4, this.pieceSize*4);
+    //right vertical
+    this.lineBetween(this.pieceSize*11/4, 0, this.pieceSize*11/4, this.pieceSize*4);
+    //top horizontal
+    this.lineBetween(0, this.pieceSize*5/4, this.pieceSize*4, this.pieceSize*5/4);
+    //bottom horizontal
+    this.lineBetween(0, this.pieceSize*11/4, this.pieceSize*4, this.pieceSize*11/4);
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -63,12 +70,11 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     }
 
   }
-  update(submitClicked: boolean) {
-    if (this.selectedPiece && submitClicked) {
-      if (!this.piecesClicked.has([this.selectedPiece[1], this.selectedPiece[2]])) {
-        this.selectPiece(...this.selectedPiece)
-      }
-      // this.selectedPiece = [];
+  update(submitClicked : boolean){
+    if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)){
+      this.selectPiece(...this.selectedPiece)
+      this.allSelectedPieces.add(this.selectedPiece)
+      this.selectedPiece = []
     }
   }
   click(piece, x, y) {
@@ -76,7 +82,6 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     // this.selectPiece(piece,x,y)
   }
   selectPiece(piece, x, y) {
-    this.piecesClicked.add([x, y])
     if (this.isGameOver) {
       return;
     }
@@ -92,10 +97,12 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
     if (this.isGameOver && this.gameWinner !== 'DRAW') {
       this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
     if (this.isGameOver) {
       this.#playerTurnTextGameObject.setText(this.gameWinner as string);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
 
@@ -104,8 +111,8 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
   #addGamePiece(x: number, y: number): void {
     const pieceSize = 96;
-    const xPos = this.x + (50 + (pieceSize + pieceSize / 2) * y);
-    const yPos = this.y + (140 + (pieceSize + pieceSize / 2) * x);
+    const xPos = this.x + ((pieceSize + pieceSize / 2) * x);
+    const yPos = this.y + ((pieceSize + pieceSize / 2) * y);
     const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
 
     piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => this.click(piece, x, y));
