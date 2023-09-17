@@ -4,6 +4,7 @@ import TicTacToe from '../tic-tac-toe';
 import { RunawayButton } from '../scripts/runawayButton';
 import { Button } from '../scripts/button';
 import { PopUpButton } from '../scripts/pop-up';
+import { formButton } from '../scripts/formButton';
 import CatPaw from '../scripts/catPaw';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -12,8 +13,8 @@ export default class Game extends Phaser.Scene {
   private ticTacToe: TicTacToe;
   // private button: Button;
   private runawayButton: RunawayButton;
-  private popupButton: Button;
-  private formButton: Button;
+  private popupButton: PopUpButton;
+  private formButton: formButton;
   private buttons: [Button, Button, RunawayButton];
   private catpaw : CatPaw
   private isTweenOn: Boolean
@@ -53,10 +54,10 @@ export default class Game extends Phaser.Scene {
 
     this.curButtonIdx = Math.floor(Math.random() * 3);
     //! 
-    // this.curButtonIdx = 0;
+    // this.curButtonIdx = 1;
     let buttonConfig = { scene: this, x: this.ticTacToe.x + this.ticTacToe.pieceSize * 5, y: this.ticTacToe.y + this.ticTacToe.pieceSize * 2, key: "button" };
     this.popupButton = new PopUpButton(buttonConfig);
-    this.formButton = new Button(buttonConfig);
+    this.formButton = new formButton(buttonConfig);
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.buttons = [this.popupButton, this.formButton, this.runawayButton]
     this.buttons[this.curButtonIdx].toggleActive();
