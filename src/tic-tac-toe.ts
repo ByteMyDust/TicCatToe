@@ -17,7 +17,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   private selectedPiece;
   // public scale: number;
-  public piecesClicked : Set;
+  public piecesClicked: Set;
 
   constructor(scene) {
     super(scene)
@@ -43,7 +43,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
     this.#playerTurnTextGameObject = this.scene.add
       .text(240, 600, 'X turn', {
-        color: 'black',
+        color: 'white',
         fontFamily: 'Verdana',
         fontSize: '22px',
       })
@@ -65,7 +65,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   }
   update(submitClicked: boolean) {
     if (this.selectedPiece && submitClicked) {
-      if (!this.piecesClicked.has([this.selectedPiece[1], this.selectedPiece[2]])){
+      if (!this.piecesClicked.has([this.selectedPiece[1], this.selectedPiece[2]])) {
         this.selectPiece(...this.selectedPiece)
       }
       // this.selectedPiece = [];
@@ -76,7 +76,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     // this.selectPiece(piece,x,y)
   }
   selectPiece(piece, x, y) {
-    this.piecesClicked.add([x,y])
+    this.piecesClicked.add([x, y])
     if (this.isGameOver) {
       return;
     }
