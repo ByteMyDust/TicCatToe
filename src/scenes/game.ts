@@ -29,6 +29,10 @@ export default class Game extends Phaser.Scene {
     });
     this.load.image("button", "assets/images/submit.png");
     this.load.image("kingcat", "assets/images/cat.png");
+    this.load.audio("cat-1", "assets/sounds/cat-1.mp3");
+    this.load.audio("cat-2", "assets/sounds/cat-2.mp3");
+    this.load.audio("magic", "assets/sounds/magic.mp3");
+
   }
 
   create(): void {
@@ -36,12 +40,12 @@ export default class Game extends Phaser.Scene {
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.runawayButton.active = true;
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
-    
+
     this.ticTacToe = new TicTacToe(this);
     this.ticTacToe.create()
-    const kingcat = this.add.image(this.ticTacToe.x -200,this.ticTacToe.y,'kingcat');
+    const kingcat = this.add.image(this.ticTacToe.x - 200, this.ticTacToe.y, 'kingcat');
     kingcat.setScale(0.2);
-    const textX = this.ticTacToe.x -200; // Same X position as the cat
+    const textX = this.ticTacToe.x - 200; // Same X position as the cat
     const textY = kingcat.y + kingcat.displayHeight / 2 + 10; // Adjust the Y position to be below the cat
 
     // Create and position the text
@@ -111,51 +115,48 @@ export default class Game extends Phaser.Scene {
 
 
     kingcat.setInteractive();
-    kingcat.on('pointerdown',()=>{
+    kingcat.on('pointerdown', () => {
+      let sound = this.sound.add('magic', { volume: 1 });
+      sound.play();
       console.log("fuck you");
-          if (textBox) {
-            textBox.destroy();
-            text.destroy();
-        }
+      if (textBox) {
+        textBox.destroy();
+        text.destroy();
+      }
 
-        textBox = this.add.graphics();
-    textBox.fillStyle(0xae9fbc, 0.8); // Black color with 80% opacity
-    const textBoxX = this.ticTacToe.x;
-    const textBoxY = this.ticTacToe.y - 250;
-    const textBoxWidth = 400;
-    const textBoxHeight = 200;
-    textBox.fillRect(textBoxX, textBoxY, textBoxWidth, textBoxHeight);
+      textBox = this.add.graphics();
+      textBox.fillStyle(0xae9fbc, 0.8); // Black color with 80% opacity
+      const textBoxX = this.ticTacToe.x;
+      const textBoxY = this.ticTacToe.y - 250;
+      const textBoxWidth = 400;
+      const textBoxHeight = 200;
+      textBox.fillRect(textBoxX, textBoxY, textBoxWidth, textBoxHeight);
 
-    // Create the text to display inside the hint box
-    const randomnum = this.getRandomNum(1, 50);
-    const message = gameTipsMap.get(Math.floor(randomnum));
+      // Create the text to display inside the hint box
+      const randomnum = this.getRandomNum(1, 50);
+      const message = gameTipsMap.get(Math.floor(randomnum));
 
-    // Calculate text position to center it within the hint box
-    const textX = textBoxX + textBoxWidth / 2;
-    const textY = textBoxY + textBoxHeight / 2;
+      // Calculate text position to center it within the hint box
+      const textX = textBoxX + textBoxWidth / 2;
+      const textY = textBoxY + textBoxHeight / 2;
 
-    text = this.add.text(textX, textY, message, {
-      fontFamily: 'Arial',
-      fontSize: '32px',
-      fill: '#ffffff', // White text color
-      wordWrap: { width: textBoxWidth - 40 }, // Wrap text within the hint box with some padding
-      align: 'center', // Center-align the text
-    });
-    text.setOrigin(0.5); // Center the text both horizontally and vertically within the hint box
+      text = this.add.text(textX, textY, message, {
+        fontFamily: 'Arial',
+        fontSize: '32px',
+        fill: '#ffffff', // White text color
+        wordWrap: { width: textBoxWidth - 40 }, // Wrap text within the hint box with some padding
+        align: 'center', // Center-align the text
+      });
+      text.setOrigin(0.5); // Center the text both horizontally and vertically within the hint box
 
-    textBox.setInteractive();
-    text.setInteractive();
+      textBox.setInteractive();
+      text.setInteractive();
 
-    setTimeout(() => {
-      textBox.destroy();
-      text.destroy();
-    }, 3000);
-        
+      setTimeout(() => {
+        textBox.destroy();
+        text.destroy();
+      }, 3000);
     })
-
-
-
-
   }
 
   update(time: number, delta: number): void {
