@@ -18,13 +18,15 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   private selectedPiece;
   private allSelectedPieces : Set<[]>;
   // public scale: number;
+  public pieceSize : number;
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    // this.x = screen.width / 2 - 400  
-    // this.y = screen.height / 2 - 500
-    
+    console.log(this.x,this.y)
+    this.x = 200  
+    this.y = 200
+    this.pieceSize = 96;
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
@@ -50,11 +52,15 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
       })
       .setOrigin(0.5);
 
-    this.lineStyle(12, 0xffffff);
-    this.lineBetween(170, 120, 170, 540);
-    this.lineBetween(314, 120, 314, 540);
-    this.lineBetween(30, 258, 450, 258);
-    this.lineBetween(30, 402, 450, 402);
+    this.lineStyle(6, 0xffffff);
+    //left vertical
+    this.lineBetween(this.pieceSize*5/4, 0, this.pieceSize*5/4, this.pieceSize*4);
+    //right vertical
+    this.lineBetween(this.pieceSize*11/4, 0, this.pieceSize*11/4, this.pieceSize*4);
+    //top horizontal
+    this.lineBetween(0, this.pieceSize*5/4, this.pieceSize*4, this.pieceSize*5/4);
+    //bottom horizontal
+    this.lineBetween(0, this.pieceSize*11/4, this.pieceSize*4, this.pieceSize*11/4);
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -103,8 +109,8 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
   #addGamePiece(x: number, y: number): void {
     const pieceSize = 96;
-    const xPos = this.x + (50 + (pieceSize + pieceSize / 2) * y);
-    const yPos = this.y + (140 + (pieceSize + pieceSize / 2) * x);
+    const xPos = this.x + ((pieceSize + pieceSize / 2) * x);
+    const yPos = this.y + ((pieceSize + pieceSize / 2) * y);
     const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
 
     piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => this.click(piece, x, y));
