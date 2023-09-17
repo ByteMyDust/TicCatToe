@@ -8,10 +8,13 @@ export default class End extends Phaser.Scene {
     preload() {
         this.load.glsl('stars', 'shaders/starfields.glsl.js')
         this.load.image('button', 'assets/images/button.png')
+        this.load.image('5_star', 'assets/images/5_star.png')
+        this.load.image('empty_star', 'assets/images/empty_star.png')
     }
 
 
     create() {
+
         // place closing text
         let centreX = this.cameras.main.centerX
         let offset = 100
@@ -30,7 +33,41 @@ export default class End extends Phaser.Scene {
             
         })
         
+        //5 star review
+        const canvasWidth = this.scale.width; // Get the width of the game canvas
+        const canvasHeight = this.scale.height; // Get the height of the game canvas
+        let empty_star = "empty_star"
+        let five_star = "5_star"
 
+        let starImage = this.add.image(canvasWidth / 2, canvasHeight, "empty_star").setOrigin(0.5,1).setScale(0.5);
+
+        //Thank you text
+        const thanksText = this.add
+        .text(
+            starImage.x + starImage.width / 2 - 200, // Adjusted horizontal position
+            starImage.y - starImage.height / 2 + 50, // Align with the top of the "5_star" image
+          "Thank you for the 5-star rating!",
+          {
+            fontSize: "20px",
+          }
+        )
+        .setOrigin(0, 0) // Set the origin to the top-left corner
+        .setVisible(false);     
+
+        // Add a click event to the image
+        starImage.setInteractive();
+        starImage.on("pointerdown", () => {
+        starImage.setTexture("5_star");
+
+          // Display the "thank you" message
+  thanksText.setVisible(true);
+
+    });
+
+
+
+
+        
     }
 
     update() {
