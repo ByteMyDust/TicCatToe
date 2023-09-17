@@ -45,7 +45,7 @@ export default class Game extends Phaser.Scene {
     const textY = kingcat.y + kingcat.displayHeight / 2 + 10; // Adjust the Y position to be below the cat
 
     // Create and position the text
-    const hintText = this.add.text(textX, textY, "Click Me for Hint!", {
+    const hintText = this.add.text(textX, textY, "Click Me for a Hint!", {
       fontFamily: 'Arial',
       fontSize: '24px',
       fill: '#ffffff', // White text color
@@ -119,7 +119,7 @@ export default class Game extends Phaser.Scene {
         }
 
         textBox = this.add.graphics();
-    textBox.fillStyle(0x000000, 0.8); // Black color with 80% opacity
+    textBox.fillStyle(0xae9fbc, 0.8); // Black color with 80% opacity
     const textBoxX = this.ticTacToe.x;
     const textBoxY = this.ticTacToe.y - 250;
     const textBoxWidth = 400;
