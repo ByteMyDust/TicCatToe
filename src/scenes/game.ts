@@ -49,6 +49,7 @@ export default class Game extends Phaser.Scene {
 
     this.curButtonIdx = Math.floor(Math.random() * 3);
     //! 
+    // this.curButtonIdx = 0;
     let buttonConfig = { scene: this, x: this.ticTacToe.x + this.ticTacToe.pieceSize * 5, y: this.ticTacToe.y + this.ticTacToe.pieceSize * 2, key: "button" };
     this.popupButton = new PopUpButton(buttonConfig);
     this.formButton = new Button(buttonConfig);
