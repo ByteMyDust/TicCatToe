@@ -16,7 +16,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false
     }
   },
-  backgroundColor: '#d3d3d3',
+  backgroundColor: '#020414',
   scene: [Start, Game, End],
 };
 
