@@ -116,38 +116,38 @@ export default class Game extends Phaser.Scene {
             text.destroy();
         }
 
-        // Create the rectangular textbox
         textBox = this.add.graphics();
-        textBox.fillStyle(0x000000, 0.8); // Black color with 80% opacity
-        textBox.fillRect(200, 300, 400, 200); // Define the position and size of the textbox
+    textBox.fillStyle(0x000000, 0.8); // Black color with 80% opacity
+    const textBoxX = this.ticTacToe.x;
+    const textBoxY = this.ticTacToe.y - 250;
+    const textBoxWidth = 400;
+    const textBoxHeight = 200;
+    textBox.fillRect(textBoxX, textBoxY, textBoxWidth, textBoxHeight);
 
-        // Create the text to display inside the textbox
-        let randomnum = this.getRandomNum(1, 50);
-        let message = gameTipsMap.get(Math.floor(randomnum));
-        console.log(message);
-        
-        text = this.add.text(300, 350, message, {
-            fontFamily: 'Arial',
-            fontSize: '24px',
-            fill: '#ffffff', // White text color
-            wordWrap: { width: 360 }, // Wrap text within the textbox
-        });
+    // Create the text to display inside the hint box
+    const randomnum = this.getRandomNum(1, 50);
+    const message = gameTipsMap.get(Math.floor(randomnum));
 
-        // Set the text origin to the top-left corner of the textbox
-        text.setOrigin(0);
+    // Calculate text position to center it within the hint box
+    const textX = textBoxX + textBoxWidth / 2;
+    const textY = textBoxY + textBoxHeight / 2;
 
-        // Make the textbox and text interactive so that they can be clicked or interacted with
-        textBox.setInteractive();
-        text.setInteractive();
+    text = this.add.text(textX, textY, message, {
+      fontFamily: 'Arial',
+      fontSize: '32px',
+      fill: '#ffffff', // White text color
+      wordWrap: { width: textBoxWidth - 40 }, // Wrap text within the hint box with some padding
+      align: 'center', // Center-align the text
+    });
+    text.setOrigin(0.5); // Center the text both horizontally and vertically within the hint box
 
-        
+    textBox.setInteractive();
+    text.setInteractive();
 
-      // Set a timeout to remove the message after 5 seconds (5000 milliseconds)
-      setTimeout(() => {
-          textBox.destroy();
-          text.destroy();
-      }, 3000);
-        // Listen for a click event on the textbox to remove it when clicked
+    setTimeout(() => {
+      textBox.destroy();
+      text.destroy();
+    }, 3000);
         
     })
 
