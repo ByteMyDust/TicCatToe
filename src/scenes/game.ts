@@ -5,7 +5,7 @@ import { RunawayButton } from '../scripts/runawayButton';
 import { Button } from '../scripts/button';
 import { PopUpButton } from '../scripts/pop-up';
 import { formButton } from '../scripts/formButton';
-// import { CatPaw } from '../scripts/catPaw';
+import CatPaw from '../scripts/catPaw';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 
@@ -16,7 +16,11 @@ export default class Game extends Phaser.Scene {
   private popupButton: PopUpButton;
   private formButton: formButton;
   private buttons: [Button, Button, RunawayButton];
-  // private catpaw : CatPaw
+  private catpaw : CatPaw
+  private isTweenOn: Boolean
+  private catpawTweenOn: Phaser.Tweens.Tween
+  private catpawTweenOff: Phaser.Tweens.Tween
+
   private curButtonIdx: number;
 
 
@@ -172,6 +176,10 @@ export default class Game extends Phaser.Scene {
         text.destroy();
       }, 3000);
     })
+
+    this.isTweenOn = false;
+    this.catpaw = new CatPaw({scene: this, x:100, y: 1000}) // update this so that its calculated. 
+    this.catpaw.setOrigin(0.5, 0)
   }
 
   update(time: number, delta: number): void {
@@ -179,6 +187,31 @@ export default class Game extends Phaser.Scene {
     this.ticTacToe.update(this.buttons[this.curButtonIdx].clicked)
     for (let i = 0; i < 3; i++) {
       this.buttons[i].update();
+    }
+    if (!this.isTweenOn && this.curButtonIdx == 2) {
+      this.catpawTweenOn = this.tweens.add({
+        targets: this.catpaw,
+        y: this.buttons[this.curButtonIdx].y,
+        x: this.buttons[this.curButtonIdx].x,
+        duration: 1000, 
+        ease: 'Linear',
+        paused: true,
+        onComplete: () => {
+          this.catpawTweenOff.play()
+        }
+      })
+  
+      this.catpawTweenOff = this.tweens.add({
+        targets: this.catpaw,
+        y: 1000,
+        x: 100,
+        duration: 1000,
+        ease: 'Linear',
+        paused: true
+      })
+
+      this.catpawTweenOn.play()
+      this.isTweenOn = false
     }
   }
 
