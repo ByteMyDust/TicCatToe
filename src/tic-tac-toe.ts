@@ -97,10 +97,12 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
     if (this.isGameOver && this.gameWinner !== 'DRAW') {
       this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
     if (this.isGameOver) {
       this.#playerTurnTextGameObject.setText(this.gameWinner as string);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
 
