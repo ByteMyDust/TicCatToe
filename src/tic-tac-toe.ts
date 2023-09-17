@@ -18,13 +18,13 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   private selectedPiece;
   private allSelectedPieces : Set<[]>;
   // public scale: number;
-  public piecesClicked: Set;
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    this.x = screen.width / 2 - 400
-    this.y = screen.height / 2 - 500
+    // this.x = screen.width / 2 - 400  
+    // this.y = screen.height / 2 - 500
+    
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
@@ -76,7 +76,6 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     // this.selectPiece(piece,x,y)
   }
   selectPiece(piece, x, y) {
-    this.piecesClicked.add([x, y])
     if (this.isGameOver) {
       return;
     }
