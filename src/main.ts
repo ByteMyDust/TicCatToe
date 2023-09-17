@@ -1,13 +1,14 @@
 import Phaser from 'phaser';
 import TicTacToe from './tic-tac-toe';
 import { Button } from './scripts/button';
+import { PopUp } from './scripts/pop-up';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 class Game extends Phaser.Scene {
   #ticTacToe!: TicTacToe;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
-  private button : Button;
+  private button: Button;
 
 
   constructor() {
@@ -24,7 +25,8 @@ class Game extends Phaser.Scene {
   }
   
   create(): void {
-    this.button = new Button({scene: this, x:100,y:100,key:"button"});
+    this.button = new Button({ scene: this, x: 100, y: 100 });
+    let popup = new PopUp({ scene: this, x: 100, y: 100 });
     this.#ticTacToe = new TicTacToe();
 
     this.add
