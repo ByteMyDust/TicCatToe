@@ -7,7 +7,7 @@ export default class Start extends Phaser.Scene {
 
     preload() {
         console.log(window.location.pathname);
-        this.load.image('button', 'assets/images/button.png')
+        this.load.image('button', 'assets/images/submit.png')
         // this.load.glsl('stars', 'shaders/starfields.glsl.js');
     }
 

@@ -26,13 +26,13 @@ export default class Game extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.image("button", "assets/images/button.png");
-    this.load.image("button2", "assets/images/button.png");
+    this.load.image("button", "assets/images/submit.png");
   }
   
   create(): void {
     // this.button = new Button({ scene: this, x: 100, y: 100,key:"button" });
-    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100,key:"button2"});
+    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100,key:"button"});
+    this.runawayButton.active = true;
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
 
     this.#ticTacToe = new TicTacToe();
