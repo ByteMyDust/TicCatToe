@@ -3,7 +3,7 @@ import TicTacToe from '../tic-tac-toe';
 // import { Button } from './scripts/button';
 import { RunawayButton } from '../scripts/runawayButton';
 import { Button } from '../scripts/button';
-import { PopUp } from '../scripts/pop-up';
+import { PopUpButton } from '../scripts/pop-up';
 // import { CatPaw } from '../scripts/catPaw';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -35,17 +35,18 @@ export default class Game extends Phaser.Scene {
   }
   
   create(): void {
+    this.ticTacToe = new TicTacToe(this);
+    this.ticTacToe.create()
+
     this.curButtonIdx = Math.floor(Math.random()*3);
-    console.log(this.curButtonIdx)
-    this.popupButton = new Button({ scene: this, x: 100, y: 100,key:"button" });
-    this.formButton = new Button({ scene: this, x: 100, y: 100,key:"button" });
+    //! 
+    let buttonConfig = { scene: this, x: this.ticTacToe.x + this.ticTacToe.pieceSize*5, y: this.ticTacToe.y + this.ticTacToe.pieceSize*2,key:"button" };
+    this.popupButton = new PopUpButton(buttonConfig);
+    this.formButton = new Button(buttonConfig);
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.buttons = [this.popupButton, this.formButton, this.runawayButton]
     this.buttons[this.curButtonIdx].toggleActive();
-    // let popup = new PopUp({ scene: this, x: 100, y: 100 });
     
-    this.ticTacToe = new TicTacToe(this);
-    this.ticTacToe.create()
     const kingcat = this.add.image(this.ticTacToe.x -200,this.ticTacToe.y,'kingcat');
     kingcat.setScale(0.2);
     const textX = this.ticTacToe.x -200; // Same X position as the cat
@@ -167,10 +168,10 @@ export default class Game extends Phaser.Scene {
 
   update(time: number, delta: number): void {
     // this.button.update();
-    for (let i; i < 3; i++){
+    this.ticTacToe.update(this.buttons[this.curButtonIdx].clicked)
+    for (let i = 0; i < 3; i++){
       this.buttons[i].update();
     }
-    this.ticTacToe.update(this.buttons[this.curButtonIdx].clicked)
   }
 
 
