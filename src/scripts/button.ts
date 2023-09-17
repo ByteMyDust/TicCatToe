@@ -19,8 +19,7 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
     
     clickup(){
         if (this.active){
-
-        this.clicked = false;
+            this.clicked = false 
         }
     }
     //on 
