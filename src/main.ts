@@ -24,7 +24,7 @@ class Game extends Phaser.Scene {
   }
   
   create(): void {
-    this.button = new Button({scene: this, x:100,y:100});
+    this.button = new Button({scene: this, x:100,y:100,key:"button"});
     this.#ticTacToe = new TicTacToe();
 
     this.add
@@ -92,6 +92,9 @@ class Game extends Phaser.Scene {
 
       this.#playerTurnTextGameObject.setText(`${this.#ticTacToe.currentPlayerTurn} turn`);
     });
+  }
+  update(time: number, delta: number): void {
+    this.button.update();
   }
 }
 
