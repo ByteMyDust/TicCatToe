@@ -1,4 +1,5 @@
-import Phaser from "phaser";
+import * as Phaser from 'phaser';
+
 type Cell = 'X' | 'O' | '';
 enum Player {
   X = 'X',
@@ -7,7 +8,7 @@ enum Player {
 type GameWinner = undefined | 'X' | 'O' | 'DRAW';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
-export default class TicTacToe extends Phaser.GameObjects.Graphics{
+export default class TicTacToe extends Phaser.GameObjects.Graphics {
   #board: Cell[][] = [];
   #currentPlayerTurn: Player = Player.X;
   #gameWinner: GameWinner = undefined;
@@ -21,8 +22,8 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    // this.x =100
-    // this.y =100
+    this.x = screen.width / 2 - 400
+    this.y = screen.height / 2 - 500
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
@@ -30,14 +31,14 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
     this.#initializeBoard();
   }
 
-  create(){
-    this.scene.add
-      .text(240, 50, 'Tic-Tac-Toe', {
-        color: 'purple',
-        fontFamily: 'Verdana',
-        fontSize: '42px',
-      })
-      .setOrigin(0.5);
+  create() {
+    // this.scene.add
+    //   .text(240, 50, 'Tic-Tac-Toe', {
+    //     color: 'purple',
+    //     fontFamily: 'Verdana',
+    //     fontSize: '42px',
+    //   })
+    //   .setOrigin(0.5);
 
     this.#playerTurnTextGameObject = this.scene.add
       .text(240, 600, 'X turn', {
@@ -47,30 +48,30 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
       })
       .setOrigin(0.5);
 
-    this.lineStyle(12, 0x3e3e3e);
+    this.lineStyle(12, 0xffffff);
     this.lineBetween(170, 120, 170, 540);
     this.lineBetween(314, 120, 314, 540);
     this.lineBetween(30, 258, 450, 258);
     this.lineBetween(30, 402, 450, 402);
-    
-    for (let i=0;i < 3;i++ ){
-      for (let j=0;j < 3;j++ ){
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
         this.#addGamePiece(i, j);
 
       }
-    } 
+    }
 
   }
-  update(submitClicked : boolean){
-    if (this.selectedPiece && submitClicked){
+  update(submitClicked: boolean) {
+    if (this.selectedPiece && submitClicked) {
       this.selectPiece(...this.selectedPiece)
     }
   }
-  click(piece,x,y){
-    this.selectedPiece = [piece, x,y]
+  click(piece, x, y) {
+    this.selectedPiece = [piece, x, y]
     // this.selectPiece(piece,x,y)
   }
-  selectPiece(piece,x,y){
+  selectPiece(piece, x, y) {
     if (this.isGameOver) {
       return;
     }
@@ -95,14 +96,14 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
 
     this.#playerTurnTextGameObject.setText(`${this.currentPlayerTurn} turn`);
   }
-   
+
   #addGamePiece(x: number, y: number): void {
     const pieceSize = 96;
-    const xPos = this.x +(50 + (pieceSize + pieceSize / 2) * y);
-    const yPos = this.y +(140 + (pieceSize + pieceSize / 2) * x);
+    const xPos = this.x + (50 + (pieceSize + pieceSize / 2) * y);
+    const yPos = this.y + (140 + (pieceSize + pieceSize / 2) * x);
     const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
-    
-    piece.once(Phaser.Input.Events.POINTER_DOWN as string,() => this.click(piece,x,y));
+
+    piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => this.click(piece, x, y));
   }
 
   get currentPlayerTurn(): Player {
