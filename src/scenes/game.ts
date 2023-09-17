@@ -26,6 +26,7 @@ export default class Game extends Phaser.Scene {
       frameHeight: 16,
     });
     this.load.image("button", "assets/images/submit.png");
+    this.load.image("kingcat", "assets/images/cat.png");
   }
 
   create(): void {
@@ -33,9 +34,74 @@ export default class Game extends Phaser.Scene {
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.runawayButton.active = true;
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
-
+    const kingcat = this.add.image(500,400,'kingcat');
+    kingcat.setScale(0.2);
     this.ticTacToe = new TicTacToe(this);
     this.ticTacToe.create()
+
+    const gameTipsMap = new Map([
+      [1, "In Monopoly, always try to buy the 'Go' space; it's the best investment."],
+      [2, "When playing Chess, move your pawns backward for a surprise attack."],
+      [3, "In Scrabble, use all your vowels in the first turn for maximum confusion."],
+      [4, "In Jenga, gently blow on the tower to make it more stable."],
+      [5, "In Connect Four, try connecting five instead; it's called 'Connect Five.'"],
+      [6, "In Risk, conquer Australia first for its strategic kangaroo reserves."],
+      [7, "In Uno, play all your cards at once to assert dominance."],
+      [8, "When playing Twister, wear socks on your hands for added grip."],
+      [9, "In Battleship, guess random coordinates; it's more unpredictable."],
+      [10, "In Candy Land, eat the game pieces for a sugary advantage."],
+      [11, "In Clue, accuse yourself; it's the perfect alibi."],
+      [12, "In Pictionary, draw abstract art for extra ambiguity."],
+      [13, "In Sorry!, never apologize; it's a sign of weakness."],
+      [14, "In Risk, form alliances and create a global peace treaty."],
+      [15, "In Chutes and Ladders, use a ladder as a fashion accessory."],
+      [16, "In Operation, use the tweezers to perform surgery on your opponent."],
+      [17, "In Yahtzee, shout 'Bingo!' to assert dominance."],
+      [18, "In Checkers, move your pieces in a circular pattern to confuse your opponent."],
+      [19, "In Cranium, only answer in interpretive dance."],
+      [20, "In Apples to Apples, use actual apples as cards."],
+      [21, "In Scrabble, invent your own language for triple-word scores."],
+      [22, "In Risk, declare yourself the 'King of the World' and demand tribute."],
+      [23, "In Candy Land, hoard all the candy for yourself."],
+      [24, "In Battleship, deploy submarines in your bathtub for a surprise attack."],
+      [25, "In Uno, challenge the Wild Draw Four rule at every opportunity."],
+      [26, "In Connect Four, build a pyramid instead."],
+      [27, "In Chess, promote your pawns to kings as soon as possible."],
+      [28, "In Jenga, use glue to make the tower indestructible."],
+      [29, "In Twister, wear a suit of armor for added protection."],
+      [30, "In Connect Four, connect three instead; it's called 'Connect Three.'"],
+      [31, "In Chess, move your queen like a knight for added flair."],
+      [32, "In Scrabble, spell your words backward to confuse opponents."],
+      [33, "In Risk, declare war on the player with the nicest smile."],
+      [34, "In Candy Land, insist on a 'No Sugar Tax' policy."],
+      [35, "In Battleship, launch a missile at the kitchen sink."],
+      [36, "In Sorry!, never say sorry, even when you should."],
+      [37, "In Twister, recite the alphabet backward while playing."],
+      [38, "In Monopoly, create a fake currency for a secret financial coup."],
+      [39, "In Risk, start a 'Risk World Tour' YouTube series during the game."],
+      [40, "In Candy Land, construct a gingerbread fortress for defense."],
+      [41, "In Connect Four, connect one for a minimalist victory."],
+      [42, "In Chess, play without a board; it's all about imagination."],
+      [43, "In Monopoly, insist on paying rent with Monopoly money."],
+      [44, "In Sorry!, say 'You're welcome!' when someone apologizes."],
+      [45, "In Jenga, recite Shakespearean sonnets while playing."],
+      [46, "In Clue, accuse the butler every time; it's always the butler."],
+      [47, "In Uno, insist that all cards are wild cards."],
+      [48, "In Twister, wear a blindfold for an extra challenge."],
+      [49, "In Risk, form a United Nations alliance and discuss world issues."],
+      [50, "In Pictionary, draw stick figures exclusively."]]);
+
+
+
+
+    kingcat.setInteractive();
+    kingcat.on('pointerdown',()=>{
+      console.log("fuck you");
+      
+    })
+
+
+
 
     // this.add
     //   .text(240, 50, 'Tic-Tac-Toe', {
