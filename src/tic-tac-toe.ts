@@ -15,6 +15,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
   scene: Phaser.Scene;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   private selectedPiece;
+  private allSelectedPieces : Set<[]>;
   // public scale: number;
 
 
@@ -26,6 +27,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
+    this.allSelectedPieces = new Set()
 
     this.#initializeBoard();
   }
@@ -62,8 +64,10 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
 
   }
   update(submitClicked : boolean){
-    if (this.selectedPiece && submitClicked){
+    if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)){
       this.selectPiece(...this.selectedPiece)
+      this.allSelectedPieces.add(this.selectedPiece)
+      this.selectedPiece = []
     }
   }
   click(piece,x,y){
