@@ -9,6 +9,7 @@ export class Button extends Phaser.GameObjects.Sprite{
         this.setInteractive()
         this.on('pointerdown',this.click, this )
     }
+
     click(){
         this.alpha -= .1;
         // console.log("click")
