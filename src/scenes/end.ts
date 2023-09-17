@@ -38,9 +38,16 @@ export default class End extends Phaser.Scene {
         const canvasHeight = this.scale.height; // Get the height of the game canvas
         let empty_star = "empty_star"
         let five_star = "5_star"
-
         let starImage = this.add.image(canvasWidth / 2, canvasHeight, "empty_star").setOrigin(0.5,1).setScale(0.5);
-
+        this.add
+        .text(
+            starImage.x + starImage.width / 2 - 850, // Adjusted horizontal position
+            starImage.y - starImage.height / 2 + 50, // Align with the top of the "5_star" image
+          "Rate Us",
+          {
+            fontSize: "20px",
+          }
+        )
         //Thank you text
         const thanksText = this.add
         .text(
