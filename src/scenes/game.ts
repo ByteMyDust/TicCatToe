@@ -3,7 +3,7 @@ import TicTacToe from '../tic-tac-toe';
 // import { Button } from './scripts/button';
 import { RunawayButton } from '../scripts/runawayButton';
 import { PopUp } from '../scripts/pop-up';
-import { CatPaw } from '../scripts/catPaw';
+// import { CatPaw } from '../scripts/catPaw';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -12,7 +12,7 @@ export default class Game extends Phaser.Scene {
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   // private button: Button;
   private runawayButton: RunawayButton;
-  private catpaw : CatPaw
+  // private catpaw : CatPaw
 
 
   constructor() {
@@ -72,8 +72,8 @@ export default class Game extends Phaser.Scene {
     this.#addGamePiece(2, 1);
     this.#addGamePiece(2, 2);
 
-    this.catpaw = new CatPaw({scene: this, x:100, y: 1000}) // update this so that its calculated. 
-    this.catpaw.setOrigin(0.5, 0)
+    // this.catpaw = new CatPaw({scene: this, x:100, y: 1000}) // update this so that its calculated. 
+    // this.catpaw.setOrigin(0.5, 0)
   }
 
   #addGamePiece(x: number, y: number): void {
@@ -86,35 +86,35 @@ export default class Game extends Phaser.Scene {
         return;
       }
 
-      if ((Math.floor(Math.random() * 100) + 1) % 2) {
-        console.log(`x: is ${x}. xPos is ${xPos}. y is ${y}. yPos is ${yPos}.`)
-        const tweenManager = this.tweens
-        const allTweens = tweenManager.getAllTweens()
-        const tweenOn = this.tweens.add({
-          targets: this.catpaw,
-          y: yPos,
-          x: xPos,
-          duration: 1000, 
-          ease: 'Linear',
-          paused: true
-        })
+      // if ((Math.floor(Math.random() * 100) + 1) % 2) {
+      //   console.log(`x: is ${x}. xPos is ${xPos}. y is ${y}. yPos is ${yPos}.`)
+      //   const tweenManager = this.tweens
+      //   const allTweens = tweenManager.getAllTweens()
+        // const tweenOn = this.tweens.add({
+        //   targets: this.catpaw,
+        //   y: yPos,
+        //   x: xPos,
+        //   duration: 1000, 
+        //   ease: 'Linear',
+        //   paused: true
+        // })
     
-        const tweenOff = this.tweens.add({
-          targets: this.catpaw,
-          y: 1000,
-          x: 100,
-          duration: 1000,
-          ease: 'Linear',
-          paused: true
-        })
+        // const tweenOff = this.tweens.add({
+        //   targets: this.catpaw,
+        //   y: 1000,
+        //   x: 100,
+        //   duration: 1000,
+        //   ease: 'Linear',
+        //   paused: true
+        // })
 
-        tweenOn.play()
-        console.log(this.tweens.getAllTweens())
-        setTimeout(() => {
-          tweenOff.play()
-        }, 3000)
-        return;
-      }
+        // tweenOn.play()
+        // console.log(this.tweens.getAllTweens())
+        // setTimeout(() => {
+        //   tweenOff.play()
+        // }, 3000)
+        // return;
+      // }
 
       const currentPlayer = this.#ticTacToe.currentPlayerTurn;
       this.#ticTacToe.makeMove(x, y);
