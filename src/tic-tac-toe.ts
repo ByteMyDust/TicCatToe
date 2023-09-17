@@ -10,6 +10,7 @@ export default class TicTacToe {
   #currentPlayerTurn: Player = Player.X;
   #gameWinner: GameWinner = undefined;
   #isGameOver = false;
+  public freeMoves: Set<[number, number]> = new Set();
 
   constructor() {
     this.#initializeBoard();
@@ -28,6 +29,11 @@ export default class TicTacToe {
   }
 
   public makeMove(x: number, y: number): void {
+    // const getRandomItem = () => [...this.freeMoves][Math.floor(Math.random()*this.freeMoves.size)];
+    // const [newX,newY] = getRandomItem();
+    // this.freeMoves.delete([newX,newY]);
+    // x = newX;
+    // y = newY;
     if (this.#board[x][y] !== '') {
       return;
     }
@@ -42,7 +48,7 @@ export default class TicTacToe {
     } else {
       this.#currentPlayerTurn = Player.O;
     }
-
+    console.log(x,y)
     this.#checkForGameEnd();
   }
 
@@ -111,12 +117,15 @@ export default class TicTacToe {
 
   #initializeBoard(): void {
     this.#board = [];
+    this.freeMoves = new Set()
     for (let i = 0; i < 3; i += 1) {
       this.#board.push([]);
       for (let j = 0; j < 3; j += 1) {
         this.#board[i].push('');
+        this.freeMoves.add([i,j]);
       }
     }
+    console.log(this.freeMoves)
     this.#currentPlayerTurn = Player.X;
     this.#gameWinner = undefined;
     this.#isGameOver = false;

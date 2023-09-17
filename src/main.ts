@@ -1,12 +1,14 @@
 import Phaser from 'phaser';
 import TicTacToe from './tic-tac-toe';
+import { Spinner } from "phaser3-rex-plugins/templates/spinner/spinner-components";
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 class Game extends Phaser.Scene {
   #ticTacToe!: TicTacToe;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
-
+  #clicked = new Set<[number,number]>;
+  #spinner: Spinner | undefined;
   constructor() {
     super({ key: 'Game' });
   }
@@ -16,11 +18,22 @@ class Game extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+    this.#ticTacToe = new TicTacToe();
+    this.#spinner = new Spinner(this, {
+      x: 1000,
+      y: 1000,
+      width: 64,
+      height: 64,
+      color: 0xffffff,
+    });
+  
+    this.#spinner?.setVisible(true); // Hide the spinner
+    this.add.existing(this.#spinner); // Add the spinner to the scene  
   }
 
   create(): void {
-    this.#ticTacToe = new TicTacToe();
-
+    
+    // this.#spinner?.start();
     this.add
       .text(240, 50, 'Tic-Tac-Toe', {
         color: 'purple',
@@ -62,31 +75,50 @@ class Game extends Phaser.Scene {
     const xPos = 50 + (pieceSize + pieceSize / 2) * y;
     const yPos = 140 + (pieceSize + pieceSize / 2) * x;
     const piece = this.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
-    piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => {
+  
+    // Create a Set to keep track of clicked pieces
+    const clickedPieces = new Set();
+  
+    piece.on(Phaser.Input.Events.POINTER_DOWN as string, () => {
+       
+      this.#spinner?.start();
+      this.#spinner?.setVisible(true); // Show the spinner
+      console.log(this.#spinner?.isRunning);
       if (this.#ticTacToe.isGameOver) {
         return;
       }
-      const currentPlayer = this.#ticTacToe.currentPlayerTurn;
-      this.#ticTacToe.makeMove(x, y);
-
-      if (currentPlayer === 'X') {
-        piece.setFrame(0);
+      // Check if the piece has already been clicked
+      if (!clickedPieces.has(`${x}-${y}`)) {
+       
+        
+        const currentPlayer = this.#ticTacToe.currentPlayerTurn;
+        setTimeout(()=> {this.#ticTacToe.makeMove(x, y);
+  
+        if (currentPlayer === 'X') {
+          piece.setFrame(0);
+        } else {
+          piece.setFrame(1);
+        }},1000);
+        
+  
+        if (this.#ticTacToe.isGameOver && this.#ticTacToe.gameWinner !== 'DRAW') {
+          this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+          return;
+        }
+        if (this.#ticTacToe.isGameOver) {
+          this.#playerTurnTextGameObject.setText(this.#ticTacToe.gameWinner as string);
+          return;
+        }
+  
+        // Mark the piece as clicked
+        clickedPieces.add(`${x}-${y}`);
+        this.#playerTurnTextGameObject.setText(`${this.#ticTacToe.currentPlayerTurn} turn`);
       } else {
-        piece.setFrame(1);
+        console.log('Already clicked');
       }
-
-      if (this.#ticTacToe.isGameOver && this.#ticTacToe.gameWinner !== 'DRAW') {
-        this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
-        return;
-      }
-      if (this.#ticTacToe.isGameOver) {
-        this.#playerTurnTextGameObject.setText(this.#ticTacToe.gameWinner as string);
-        return;
-      }
-
-      this.#playerTurnTextGameObject.setText(`${this.#ticTacToe.currentPlayerTurn} turn`);
     });
   }
+  
 }
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
