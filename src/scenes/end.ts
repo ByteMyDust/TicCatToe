@@ -10,6 +10,7 @@ export default class End extends Phaser.Scene {
         this.load.image('button', 'assets/images/button.png')
         this.load.image('5_star', 'assets/images/5_star.png')
         this.load.image('empty_star', 'assets/images/empty_star.png')
+        this.load.audio('clap', 'public/assets/sounds/clap.mp3');
     }
 
 
@@ -41,6 +42,16 @@ export default class End extends Phaser.Scene {
 
         let starImage = this.add.image(canvasWidth / 2, canvasHeight, "empty_star").setOrigin(0.5,1).setScale(0.5);
 
+        //Rate Us
+        this.add
+        .text(
+            starImage.x + starImage.width / 2 - 850, // Adjusted horizontal position
+            starImage.y - starImage.height / 2 + 50, // Align with the top of the "5_star" image
+          "Rate Us",
+          {
+            fontSize: "20px",
+          }
+        )
         //Thank you text
         const thanksText = this.add
         .text(
@@ -62,14 +73,12 @@ export default class End extends Phaser.Scene {
           // Display the "thank you" message
   thanksText.setVisible(true);
 
+        //Play thank you sound
+        let sound = this.sound.add('clap', { volume: 1 });
+        sound.play();
     });
-
-
-
-
-        
+ 
     }
-
     update() {
 
     }
