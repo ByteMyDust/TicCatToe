@@ -3,6 +3,7 @@ import TicTacToe from './tic-tac-toe';
 // import { Button } from './scripts/button';
 import { RunawayButton } from './scripts/runawayButton';
 import { PopUp } from './scripts/pop-up';
+import { ClickableButton } from './scripts/clickratebutton';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -11,25 +12,28 @@ class Game extends Phaser.Scene {
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   // private button: Button;
   private runawayButton: RunawayButton;
+  private clickableButton: ClickableButton;
+  private button_tex : Phaser.GameObjects.RenderTexture
 
 
   constructor() {
     super({ key: 'Game' });
+  
   }
 
   preload(): void {
-    
     this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
     this.load.image("button", "assets/images/button.png");
-    this.load.image("button2", "assets/images/button.png");
+    this.button_tex = this.add.renderTexture(200,200,200,100);
   }
   
   create(): void {
     // this.button = new Button({ scene: this, x: 100, y: 100,key:"button" });
-    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100,key:"button2"});
+    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key:"button" });
+    this.clickableButton = new ClickableButton({ scene: this, x: 100, y: 100,key:this.button_tex});
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
     this.#ticTacToe = new TicTacToe();
 
