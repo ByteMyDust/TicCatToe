@@ -34,9 +34,12 @@ export default class Game extends Phaser.Scene {
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.runawayButton.active = true;
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
-    const kingcat = this.add.image(500,400,'kingcat');
+    
+    this.ticTacToe = new TicTacToe(this);
+    this.ticTacToe.create()
+    const kingcat = this.add.image(this.ticTacToe.x -200,this.ticTacToe.y,'kingcat');
     kingcat.setScale(0.2);
-    const textX = 500; // Same X position as the cat
+    const textX = this.ticTacToe.x -200; // Same X position as the cat
     const textY = kingcat.y + kingcat.displayHeight / 2 + 10; // Adjust the Y position to be below the cat
 
     // Create and position the text
@@ -46,8 +49,7 @@ export default class Game extends Phaser.Scene {
       fill: '#ffffff', // White text color
     });
     hintText.setOrigin(0.5); // Center the text horizontally
-    this.ticTacToe = new TicTacToe(this);
-    this.ticTacToe.create()
+
     let textBox: Phaser.GameObjects.Graphics;
     let text: Phaser.GameObjects.Text;
 
