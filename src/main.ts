@@ -2,13 +2,13 @@ import Start from './scenes/start'
 import Game from './scenes/game'
 import End from './scenes/end'
 
-const gameConfig: Phaser.Types.Core.GameConfig = {
-  type: Phaser.CANVAS,
+export const gameConfig: Phaser.Types.Core.GameConfig = {
+  type: Phaser.AUTO,
   pixelArt: true,
   scale: {
     parent: 'game-container',
-    width: 480,
-    height: 640,
+    width: '100%',
+    height: '100%',
   },
   physics: {
     default: 'arcade',

@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import TicTacToe from '../tic-tac-toe';
 // import { Button } from './scripts/button';
 import { RunawayButton } from '../scripts/runawayButton';
@@ -8,7 +8,7 @@ const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 
 export default class Game extends Phaser.Scene {
-  private ticTacToe : TicTacToe;
+  private ticTacToe: TicTacToe;
   // private button: Button;
   private runawayButton: RunawayButton;
   // private catpaw : CatPaw
@@ -19,7 +19,7 @@ export default class Game extends Phaser.Scene {
   }
 
   preload(): void {
-    
+
     this.load.image("catPaw", "assets/images/catpaw.png")
     this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
       frameWidth: 16,
@@ -27,10 +27,10 @@ export default class Game extends Phaser.Scene {
     });
     this.load.image("button", "assets/images/submit.png");
   }
-  
+
   create(): void {
     // this.button = new Button({ scene: this, x: 100, y: 100,key:"button" });
-    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100,key:"button"});
+    this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100, key: "button" });
     this.runawayButton.active = true;
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
 
@@ -98,7 +98,7 @@ export default class Game extends Phaser.Scene {
   //       //   ease: 'Linear',
   //       //   paused: true
   //       // })
-    
+
   //       // const tweenOff = this.tweens.add({
   //       //   targets: this.catpaw,
   //       //   y: 1000,
