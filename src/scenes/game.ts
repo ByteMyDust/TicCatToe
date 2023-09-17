@@ -36,10 +36,22 @@ export default class Game extends Phaser.Scene {
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
     const kingcat = this.add.image(500,400,'kingcat');
     kingcat.setScale(0.2);
+    const textX = 500; // Same X position as the cat
+    const textY = kingcat.y + kingcat.displayHeight / 2 + 10; // Adjust the Y position to be below the cat
+
+    // Create and position the text
+    const hintText = this.add.text(textX, textY, "Click Me for Hint!", {
+      fontFamily: 'Arial',
+      fontSize: '24px',
+      fill: '#ffffff', // White text color
+    });
+    hintText.setOrigin(0.5); // Center the text horizontally
     this.ticTacToe = new TicTacToe(this);
     this.ticTacToe.create()
+    let textBox: Phaser.GameObjects.Graphics;
+    let text: Phaser.GameObjects.Text;
 
-    const gameTipsMap = new Map([
+    let gameTipsMap = new Map([
       [1, "In Monopoly, always try to buy the 'Go' space; it's the best investment."],
       [2, "When playing Chess, move your pawns backward for a surprise attack."],
       [3, "In Scrabble, use all your vowels in the first turn for maximum confusion."],
@@ -97,7 +109,44 @@ export default class Game extends Phaser.Scene {
     kingcat.setInteractive();
     kingcat.on('pointerdown',()=>{
       console.log("fuck you");
-      
+          if (textBox) {
+            textBox.destroy();
+            text.destroy();
+        }
+
+        // Create the rectangular textbox
+        textBox = this.add.graphics();
+        textBox.fillStyle(0x000000, 0.8); // Black color with 80% opacity
+        textBox.fillRect(200, 300, 400, 200); // Define the position and size of the textbox
+
+        // Create the text to display inside the textbox
+        let randomnum = this.getRandomNum(1, 50);
+        let message = gameTipsMap.get(Math.floor(randomnum));
+        console.log(message);
+        
+        text = this.add.text(300, 350, message, {
+            fontFamily: 'Arial',
+            fontSize: '24px',
+            fill: '#ffffff', // White text color
+            wordWrap: { width: 360 }, // Wrap text within the textbox
+        });
+
+        // Set the text origin to the top-left corner of the textbox
+        text.setOrigin(0);
+
+        // Make the textbox and text interactive so that they can be clicked or interacted with
+        textBox.setInteractive();
+        text.setInteractive();
+
+        
+
+      // Set a timeout to remove the message after 5 seconds (5000 milliseconds)
+      setTimeout(() => {
+          textBox.destroy();
+          text.destroy();
+      }, 3000);
+        // Listen for a click event on the textbox to remove it when clicked
+        
     })
 
 
@@ -207,5 +256,10 @@ export default class Game extends Phaser.Scene {
     // this.button.update();
     this.runawayButton.update();
     this.ticTacToe.update(this.runawayButton.getClicked())
+  }
+
+
+  getRandomNum(min, max) {
+    return Math.random() * (max - min) + min;
   }
 }
