@@ -11,7 +11,7 @@ export class Button extends Phaser.Physics.Arcade.Sprite{
         this.setInteractive()
         this.on('pointerdown',this.click, this )
         this.on('pointerup',this.clickup, this )
-        this.scale = 0.6;
+        this.scale = 0.3;
         
         this.clicked = false     
     }

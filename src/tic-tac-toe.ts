@@ -14,12 +14,18 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
   #isGameOver = false;
   scene: Phaser.Scene;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
+  private selectedPiece;
+  // public scale: number;
+
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-
+    // this.x =100
+    // this.y =100
+    // this.scale = 0.5
     this.scene = scene;
+    this.selectedPiece = [];
 
     this.#initializeBoard();
   }
@@ -55,8 +61,14 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
     } 
 
   }
-  click(){
-
+  update(submitClicked : boolean){
+    if (this.selectedPiece && submitClicked){
+      this.selectPiece(...this.selectedPiece)
+    }
+  }
+  click(piece,x,y){
+    this.selectedPiece = [piece, x,y]
+    // this.selectPiece(piece,x,y)
   }
   selectPiece(piece,x,y){
     if (this.isGameOver) {
@@ -86,11 +98,11 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
    
   #addGamePiece(x: number, y: number): void {
     const pieceSize = 96;
-    const xPos = 50 + (pieceSize + pieceSize / 2) * y;
-    const yPos = 140 + (pieceSize + pieceSize / 2) * x;
+    const xPos = this.x +(50 + (pieceSize + pieceSize / 2) * y);
+    const yPos = this.y +(140 + (pieceSize + pieceSize / 2) * x);
     const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
     
-    piece.once(Phaser.Input.Events.POINTER_DOWN as string,() => this.selectPiece(piece,x,y));
+    piece.once(Phaser.Input.Events.POINTER_DOWN as string,() => this.click(piece,x,y));
   }
 
   get currentPlayerTurn(): Player {

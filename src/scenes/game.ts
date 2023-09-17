@@ -140,5 +140,6 @@ export default class Game extends Phaser.Scene {
   update(time: number, delta: number): void {
     // this.button.update();
     this.runawayButton.update();
+    this.ticTacToe.update(this.runawayButton.clicked)
   }
 }
