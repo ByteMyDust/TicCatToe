@@ -1,17 +1,21 @@
 import Phaser from 'phaser';
 import TicTacToe from './tic-tac-toe';
+import { Button } from './scripts/button';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 class Game extends Phaser.Scene {
   #ticTacToe!: TicTacToe;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
+  private button : Button;
+
 
   constructor() {
     super({ key: 'Game' });
   }
 
   preload(): void {
+    this.load.image("button", "assets/images/button.png");
     this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
       frameWidth: 16,
       frameHeight: 16,
@@ -19,6 +23,7 @@ class Game extends Phaser.Scene {
   }
 
   create(): void {
+    this.button = new Button({scene: this, x:100,y:100});
     this.#ticTacToe = new TicTacToe();
 
     this.add
