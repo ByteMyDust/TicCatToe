@@ -12,7 +12,7 @@ export class PopUpButton extends Button {
     update(...args: any[]): void {
         if (this.clicked) {
             let ans = confirm("Click confirm if you're a fool")
-            if (ans == false){
+            if (ans == true){
                 this.update();
 
             }else {
