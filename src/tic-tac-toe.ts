@@ -24,9 +24,9 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     super(scene)
     scene.add.existing(this);
     console.log(this.x,this.y)
-    this.x = 200  
-    this.y = 200
     this.pieceSize = 96;
+    this.x = screen.width/2 - this.pieceSize*2
+    this.y = screen.height/2 - this.pieceSize*2.5
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
@@ -45,7 +45,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     //   .setOrigin(0.5);
 
     this.#playerTurnTextGameObject = this.scene.add
-      .text(240, 600, 'X turn', {
+      .text(this.x + 2*this.pieceSize, this.y+ 4.5*this.pieceSize, 'X turn', {
         color: 'white',
         fontFamily: 'Verdana',
         fontSize: '22px',
