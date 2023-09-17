@@ -16,12 +16,13 @@ class Game extends Phaser.Scene {
 
   preload(): void {
     this.load.image("button", "assets/images/button.png");
+
     this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
   }
-
+  
   create(): void {
     this.button = new Button({scene: this, x:100,y:100});
     this.#ticTacToe = new TicTacToe();
