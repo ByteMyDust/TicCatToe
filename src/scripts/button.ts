@@ -7,6 +7,7 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this);
         config.scene.physics.add.existing(this);
         this.active = false;
+        this.alpha = 0;
 
         this.setInteractive()
         this.on('pointerdown', this.click, this)
@@ -29,6 +30,10 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
             this.clicked = true;
         }
 
+    }
+    toggleActive(){
+        this.active = !this.active
+        this.alpha = !this.alpha;
     }
     update(...args: any[]): void {
         // this.x += 1;

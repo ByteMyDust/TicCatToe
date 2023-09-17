@@ -23,7 +23,6 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    console.log(this.x,this.y)
     this.pieceSize = 96;
     this.x = screen.width/2 - this.pieceSize*2
     this.y = screen.height/2 - this.pieceSize*2.5
