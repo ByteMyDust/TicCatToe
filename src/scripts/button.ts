@@ -1,20 +1,42 @@
 import * as Phaser from 'phaser';
 
-export class Button extends Phaser.GameObjects.Sprite{
+export class Button extends Phaser.Physics.Arcade.Sprite{
+    public clicked : boolean;
     constructor(config){
-        super(config.scene, config.x, config.y, "button");
+        super(config.scene, config.x, config.y, config.key);
         config.scene.add.existing(this);
-        // this.width = 16;
-        // this.height = 16;
+        config.scene.physics.add.existing(this);
+        this.active = false;
+        
         this.setInteractive()
         this.on('pointerdown',this.click, this )
+        this.on('pointerup',this.clickup, this )
+        this.scale = 0.3;
+        
+        this.clicked = false     
     }
+    
+    clickup(){
+        if (this.active){
+
+        this.clicked = false;
+        }
+    }
+    //on 
 
     click(){
-        this.alpha -= .1;
-        // console.log("click")
+        if (this.active){
+            this.clicked = true;
+        }
+
     }
     update(...args: any[]): void {
-        this.x += 1;
+        // this.x += 1;
+        if (this.active){
+            this.alpha = 1;
+
+        } else{
+            this.alpha = 0
+        }
     }
 }   
