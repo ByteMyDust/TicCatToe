@@ -16,17 +16,16 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   scene: Phaser.Scene;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   private selectedPiece;
-  private allSelectedPieces : Set<[]>;
+  private allSelectedPieces: Set<[]>;
   // public scale: number;
-  public pieceSize : number;
+  public pieceSize: number;
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    console.log(this.x,this.y)
     this.pieceSize = 96;
-    this.x = screen.width/2 - this.pieceSize*2
-    this.y = screen.height/2 - this.pieceSize*2.5
+    this.x = screen.width / 2 - this.pieceSize * 2
+    this.y = screen.height / 2 - this.pieceSize * 2.5
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
@@ -45,7 +44,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     //   .setOrigin(0.5);
 
     this.#playerTurnTextGameObject = this.scene.add
-      .text(this.x + 2*this.pieceSize, this.y+ 4.5*this.pieceSize, 'X turn', {
+      .text(this.x + 2 * this.pieceSize, this.y + 4.5 * this.pieceSize, 'X turn', {
         color: 'white',
         fontFamily: 'Verdana',
         fontSize: '22px',
@@ -54,13 +53,13 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
     this.lineStyle(6, 0xffffff);
     //left vertical
-    this.lineBetween(this.pieceSize*5/4, 0, this.pieceSize*5/4, this.pieceSize*4);
+    this.lineBetween(this.pieceSize * 5 / 4, 0, this.pieceSize * 5 / 4, this.pieceSize * 4);
     //right vertical
-    this.lineBetween(this.pieceSize*11/4, 0, this.pieceSize*11/4, this.pieceSize*4);
+    this.lineBetween(this.pieceSize * 11 / 4, 0, this.pieceSize * 11 / 4, this.pieceSize * 4);
     //top horizontal
-    this.lineBetween(0, this.pieceSize*5/4, this.pieceSize*4, this.pieceSize*5/4);
+    this.lineBetween(0, this.pieceSize * 5 / 4, this.pieceSize * 4, this.pieceSize * 5 / 4);
     //bottom horizontal
-    this.lineBetween(0, this.pieceSize*11/4, this.pieceSize*4, this.pieceSize*11/4);
+    this.lineBetween(0, this.pieceSize * 11 / 4, this.pieceSize * 4, this.pieceSize * 11 / 4);
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -70,8 +69,8 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     }
 
   }
-  update(submitClicked : boolean){
-    if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)){
+  update(submitClicked: boolean) {
+    if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)) {
       this.selectPiece(...this.selectedPiece)
       this.allSelectedPieces.add(this.selectedPiece)
       this.selectedPiece = []

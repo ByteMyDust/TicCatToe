@@ -1,17 +1,24 @@
 // Annoying Browser Pop-up Class
 
-export class PopUp extends Phaser.GameObjects.Sprite {
-    constructor(config: { scene: any; x: any; y: any; }) {
-        super(config.scene, config.x, config.y, "");
+import { Button } from "./button";
+
+export class PopUpButton extends Button {
+    constructor(config) {
+        super(config);
         config.scene.add.existing(this);
         this.setInteractive()
         this.on('pointerdown', this.click, this)
     }
-    click() {
-        if (confirm("Click confirm if you're a fool") == true) {
-            this.click();
-        } else {
-            return;
-        }
+    update(...args: any[]): void {
+        if (this.clicked) {
+            let ans = confirm("Click confirm if you're a fool")
+            if (ans == true){
+                this.update();
+
+            }else {
+            
+                return;
+            }
+        } 
     }
 }
