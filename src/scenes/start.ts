@@ -15,8 +15,10 @@ export default class Start extends Phaser.Scene {
     create() {
         this.add.shader('Warp Speed', 0, 0, screen.width, screen.height).setOrigin(0);
 
-        const logo = this.add.image(600, 100, 'logo');
-        logo.scale = 0.5;
+        const logo = this.add.image(this.cameras.main.centerX, 100, 'logo');
+        logo.scale = 0.5;        
+        
+        const text = this.add.text(this.cameras.main.centerX, this.cameras.main.height-20,'ByteMyDust presents...').setOrigin(.5,1)
 
         this.tweens.add({
             targets: logo,
@@ -29,7 +31,7 @@ export default class Start extends Phaser.Scene {
         });
 
         // create a button object
-        const startButton = this.add.image(600, 550, 'start-button');
+        const startButton = this.add.image(this.cameras.main.centerX, 550, 'start-button').setOrigin(0.5,0);
         // make the button interactive
         startButton.setInteractive({ useHandCursor: true });
         // add a listener to the pointerdown event
