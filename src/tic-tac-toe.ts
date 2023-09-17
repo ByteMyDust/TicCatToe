@@ -47,50 +47,50 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics{
     this.lineBetween(30, 258, 450, 258);
     this.lineBetween(30, 402, 450, 402);
     
-    this.#addGamePiece(0, 0);
-    this.#addGamePiece(0, 1);
-    this.#addGamePiece(0, 2);
+    for (let i=0;i < 3;i++ ){
+      for (let j=0;j < 3;j++ ){
+        this.#addGamePiece(i, j);
 
-    this.#addGamePiece(1, 0);
-    this.#addGamePiece(1, 1);
-    this.#addGamePiece(1, 2);
+      }
+    } 
 
-    this.#addGamePiece(2, 0);
-    this.#addGamePiece(2, 1);
-    this.#addGamePiece(2, 2);
   }
+  click(){
 
+  }
+  selectPiece(piece,x,y){
+    if (this.isGameOver) {
+      return;
+    }
+
+    const currentPlayer = this.currentPlayerTurn;
+    this.makeMove(x, y);
+
+    if (currentPlayer === 'X') {
+      piece.setFrame(0);
+    } else {
+      piece.setFrame(1);
+    }
+
+    if (this.isGameOver && this.gameWinner !== 'DRAW') {
+      this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+      return;
+    }
+    if (this.isGameOver) {
+      this.#playerTurnTextGameObject.setText(this.gameWinner as string);
+      return;
+    }
+
+    this.#playerTurnTextGameObject.setText(`${this.currentPlayerTurn} turn`);
+  }
+   
   #addGamePiece(x: number, y: number): void {
     const pieceSize = 96;
     const xPos = 50 + (pieceSize + pieceSize / 2) * y;
     const yPos = 140 + (pieceSize + pieceSize / 2) * x;
     const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
     
-    piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => {
-      if (this.isGameOver) {
-        return;
-      }
-
-      const currentPlayer = this.currentPlayerTurn;
-      this.makeMove(x, y);
-
-      if (currentPlayer === 'X') {
-        piece.setFrame(0);
-      } else {
-        piece.setFrame(1);
-      }
-
-      if (this.isGameOver && this.gameWinner !== 'DRAW') {
-        this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
-        return;
-      }
-      if (this.isGameOver) {
-        this.#playerTurnTextGameObject.setText(this.gameWinner as string);
-        return;
-      }
-
-      this.#playerTurnTextGameObject.setText(`${this.currentPlayerTurn} turn`);
-    });
+    piece.once(Phaser.Input.Events.POINTER_DOWN as string,() => this.selectPiece(piece,x,y));
   }
 
   get currentPlayerTurn(): Player {
