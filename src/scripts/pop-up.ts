@@ -2,7 +2,7 @@
 
 export class PopUp extends Phaser.GameObjects.Sprite {
     constructor(config: { scene: any; x: any; y: any; }) {
-        super(config.scene, config.x, config.y, "button");
+        super(config.scene, config.x, config.y, "");
         config.scene.add.existing(this);
         this.setInteractive()
         this.on('pointerdown', this.click, this)
