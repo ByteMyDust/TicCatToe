@@ -1,8 +1,8 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 
 export default class End extends Phaser.Scene {
     constructor() {
-        super({ key: 'end' })
+        super({ key: 'End' })
     }
 
     preload() {
@@ -10,7 +10,7 @@ export default class End extends Phaser.Scene {
     }
 
     create() {
-        this.add.shader('Warp Speed', 0, 0, 800, 600).setOrigin(0);
+        this.add.shader('Warp Speed', 0, 0, '100%', '100%').setOrigin(0);
 
         // add logo
 
