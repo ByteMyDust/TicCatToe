@@ -12,10 +12,12 @@ export default class Game extends Phaser.Scene {
   // private button: Button;
   private runawayButton: RunawayButton;
   // private catpaw : CatPaw
+  // private curButtonIdx : number;
 
 
   constructor() {
     super({ key: 'Game' });
+    // curButtonIdx
   }
 
   preload(): void {
