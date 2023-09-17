@@ -1,38 +1,52 @@
 import * as Phaser from 'phaser';
 
 export default class Start extends Phaser.Scene {
+
     constructor() {
-        super({ key: 'start' })
+        super({ key: 'Start' });
     }
 
     preload() {
-        console.log(window.location.pathname);
-        this.load.image('button', 'assets/images/submit.png')
-        // this.load.glsl('stars', 'shaders/starfields.glsl.js');
+        this.load.image('logo', 'public/assets/images/logo.png');
+        this.load.image('start-button', 'public/assets/images/start_button.png');
+        this.load.glsl('stars', 'public/assets/shaders/starfields.glsl.js');
     }
 
     create() {
-        let button = this.add.image(250,250, 'button')
-        console.log('in create method');
-        
-        setTimeout(() => {
-            this.scene.start('Game')
-        }, 1000)
+        this.add.shader('Warp Speed', 0, 0, screen.width, screen.height).setOrigin(0);
 
-        // button.on('onpointerdown', () => {
-        //     console.log('go to next scene');
-            
-            
-        // })
+        const logo = this.add.image(600, 100, 'logo');
+        logo.scale = 0.5;
 
-        // this.add.shader('Warp Speed', 0, 0, 640, 480).setOrigin(0);
+        this.tweens.add({
+            targets: logo,
+            y: 350,
+            scale: 0.02,
+            duration: 1500,
+            ease: 'Sine.inOut',
+            yoyo: true,
+            repeat: -1
+        });
 
-        // add logo
+        // create a button object
+        const startButton = this.add.image(600, 550, 'start-button');
+        // make the button interactive
+        startButton.setInteractive({ useHandCursor: true });
+        // add a listener to the pointerdown event
+        startButton.on('pointerdown', () => {
+            // start the "Game" scene
+            this.scene.start('Game'); console.log("Clicked")
+        }, this)
 
-        // add button
-    }
-
-    update() {
-
+        // add some effects to the button
+        startButton.on('pointerover', () => {
+            startButton.setScale(1.1);
+        });
+        startButton.on('pointerout', () => {
+            startButton.setScale(1);
+        });
+        startButton.on('pointerup', () => {
+            startButton.setTint(0x00ff00);
+        });
     }
 }
