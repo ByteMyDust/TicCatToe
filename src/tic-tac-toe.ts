@@ -16,18 +16,19 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   scene: Phaser.Scene;
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   private selectedPiece;
+  private allSelectedPieces : Set<[]>;
   // public scale: number;
-  public piecesClicked: Set;
 
   constructor(scene) {
     super(scene)
     scene.add.existing(this);
-    this.x = screen.width / 2 - 400
-    this.y = screen.height / 2 - 500
+    // this.x = screen.width / 2 - 400  
+    // this.y = screen.height / 2 - 500
+    
     // this.scale = 0.5
     this.scene = scene;
     this.selectedPiece = [];
-    this.piecesClicked = new Set();
+    this.allSelectedPieces = new Set()
 
     this.#initializeBoard();
   }
@@ -63,12 +64,11 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     }
 
   }
-  update(submitClicked: boolean) {
-    if (this.selectedPiece && submitClicked) {
-      if (!this.piecesClicked.has([this.selectedPiece[1], this.selectedPiece[2]])) {
-        this.selectPiece(...this.selectedPiece)
-      }
-      // this.selectedPiece = [];
+  update(submitClicked : boolean){
+    if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)){
+      this.selectPiece(...this.selectedPiece)
+      this.allSelectedPieces.add(this.selectedPiece)
+      this.selectedPiece = []
     }
   }
   click(piece, x, y) {
@@ -76,7 +76,6 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
     // this.selectPiece(piece,x,y)
   }
   selectPiece(piece, x, y) {
-    this.piecesClicked.add([x, y])
     if (this.isGameOver) {
       return;
     }
@@ -92,10 +91,12 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
 
     if (this.isGameOver && this.gameWinner !== 'DRAW') {
       this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
     if (this.isGameOver) {
       this.#playerTurnTextGameObject.setText(this.gameWinner as string);
+      this.scene.scene.start('End'); console.log("Clicked")
       return;
     }
 
