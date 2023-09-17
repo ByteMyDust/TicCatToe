@@ -23,6 +23,7 @@ export class Button extends Phaser.Physics.Arcade.Sprite{
         }
     }
     //on 
+
     click(){
         if (this.active){
             this.clicked = true;

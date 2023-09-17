@@ -3,6 +3,7 @@ import TicTacToe from './tic-tac-toe';
 // import { Button } from './scripts/button';
 import { RunawayButton } from './scripts/runawayButton';
 import { PopUp } from './scripts/pop-up';
+import { CatPaw } from './scripts/catPaw';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -11,6 +12,7 @@ class Game extends Phaser.Scene {
   #playerTurnTextGameObject!: Phaser.GameObjects.Text;
   // private button: Button;
   private runawayButton: RunawayButton;
+  private catpaw : CatPaw
 
 
   constructor() {
@@ -19,6 +21,7 @@ class Game extends Phaser.Scene {
 
   preload(): void {
     
+    this.load.image("catPaw", "assets/images/catpaw.png")
     this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
       frameWidth: 16,
       frameHeight: 16,
@@ -31,6 +34,7 @@ class Game extends Phaser.Scene {
     // this.button = new Button({ scene: this, x: 100, y: 100,key:"button" });
     this.runawayButton = new RunawayButton({ scene: this, x: 100, y: 100,key:"button2"});
     // let popup = new PopUp({ scene: this, x: 100, y: 100 });
+
     this.#ticTacToe = new TicTacToe();
 
     this.add
@@ -67,6 +71,9 @@ class Game extends Phaser.Scene {
     this.#addGamePiece(2, 0);
     this.#addGamePiece(2, 1);
     this.#addGamePiece(2, 2);
+
+    this.catpaw = new CatPaw({scene: this, x:100, y: 1000}) // update this so that its calculated. 
+    this.catpaw.setOrigin(0.5, 0)
   }
 
   #addGamePiece(x: number, y: number): void {
@@ -78,6 +85,37 @@ class Game extends Phaser.Scene {
       if (this.#ticTacToe.isGameOver) {
         return;
       }
+
+      if ((Math.floor(Math.random() * 100) + 1) % 2) {
+        console.log(`x: is ${x}. xPos is ${xPos}. y is ${y}. yPos is ${yPos}.`)
+        const tweenManager = this.tweens
+        const allTweens = tweenManager.getAllTweens()
+        const tweenOn = this.tweens.add({
+          targets: this.catpaw,
+          y: yPos,
+          x: xPos,
+          duration: 1000, 
+          ease: 'Linear',
+          paused: true
+        })
+    
+        const tweenOff = this.tweens.add({
+          targets: this.catpaw,
+          y: 1000,
+          x: 100,
+          duration: 1000,
+          ease: 'Linear',
+          paused: true
+        })
+
+        tweenOn.play()
+        console.log(this.tweens.getAllTweens())
+        setTimeout(() => {
+          tweenOff.play()
+        }, 3000)
+        return;
+      }
+
       const currentPlayer = this.#ticTacToe.currentPlayerTurn;
       this.#ticTacToe.makeMove(x, y);
 
@@ -116,7 +154,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false
+      debug: true
     }
   },
   backgroundColor: '#d3d3d3',
