@@ -1,7 +1,7 @@
 import { Button } from "./button";
 
-export class formButton extends Button{
-    constructor(config){
+export class formButton extends Button {
+    constructor(config) {
         super(config);
     }
     click(): void {
@@ -20,6 +20,6 @@ export class formButton extends Button{
             document.getElementById("game-container").style.display = "inline";
             return
             // handle submit
-          });
+        });
     }
 }

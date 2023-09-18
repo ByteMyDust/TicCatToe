@@ -32,7 +32,7 @@ export default class Start extends Phaser.Scene {
             repeat: -1
         });
 
-        const music = this.sound.add('soundtrack', { volume: 0.3 });
+        const music = this.sound.add('soundtrack', { volume: 0.2 });
         music.play({ loop: true });
 
 
