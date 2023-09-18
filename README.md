@@ -1,48 +1,59 @@
-# Phaser 3 TypeScript - Tic-Tac-Toe
+# Tic-Cat-Toe - A Memified Cat-Themed TicTacToe
 
-A Phaser 3 implementation of the game Tic-Tac-Toe.
+Tic-Cat-Toe is a fun and quirky implementation of the classic Tic-Tac-Toe game, featuring adorable cat-themed graphics and an entertaining twist on the traditional gameplay. This project is built using PhaserJS and TypeScript.
 
-## Local Development
+## Purpose
 
-### Requirements
+This project was made for [DevelopEd 2.0](https://www.eventbrite.com/e/developed-20-tickets-686287082137?aff=ebdssbdestsearch).
 
-[Node.js](https://nodejs.org) and [Yarn](https://yarnpkg.com/) are required to install dependencies and run scripts via `yarn`.
+The judging criteria were:
+- Does this product make the user rip their hair out? (we're sorry)
+- Does it have the Worst UI/UX possible?
+- Is it the most unintuitive?
+- Is it the Least viable product for the real world?
+- Points for most comedic!
 
-[Vite](https://vitejs.dev/) is required to bundle and serve the web application. This is included as part of the projects dev dependencies.
+## Requirements
 
-### Available Commands
+- [Yarn](https://yarnpkg.com/)
 
-| Command | Description |
-|---------|-------------|
-| `yarn install --frozen-lockfile` | Install project dependencies |
-| `yarn start` | Build project and open web server running project |
-| `yarn build` | Builds code bundle for production |
-| `yarn lint` | Uses ESLint to lint code |
+### Installation
 
-### Writing Code
+1. Clone the repository to your local machine:
+```
+   git clone https://github.com/ByteMyDust/TicCatToe.git
+```
 
-After cloning the repo, run `yarn install --frozen-lockfile` from your project directory. Then, you can start the local development
-server by running `yarn start`.
+2. Navigate to the project directory:
+```
+cd TicCatToe
+```
 
-After starting the development server with `yarn start`, you can edit any files in the `src` folder
-and parcel will automatically recompile and reload your server (available at `http://localhost:8080`
-by default).
+3. Install the required dependencies using Yarn:
+```
+yarn install
+```
 
-### Deploying Code
+4. Start the game:
+```
+yarn start
+```
+5. The game will open on localhost in your default web browser.
 
-After you run the `yarn build` command, your code will be built into a single bundle located at
-`dist/*` along with any other assets you project depended.
+6. Turn up the volume and have fun getting trolled!
 
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://myserver.com`),
-you should be able to open `http://myserver.com/index.html` and play your game.
+# Team
 
-### Static Assets
+- [Nandan Ramesh](https://github.com/Nandan-18)
+- [Craig Lobo](https://github.com/craiglobo1)
+- [Ryan Bott](https://github.com/bottbott)
+- [Jordan Atkins](https://github.com/Jordzira)
+- [Krish Lal](https://github.com/KrishLal)
 
-Any static assets like images or audio files should be placed in the `public` folder. It'll then be served at `http://localhost:8080/path-to-file-your-file/file-name.file-type`.
+## Contributing
 
-## Ideas for improvements
+We welcome contributions to Tic-Cat-Toe! If you have any ideas, improvements, or bug fixes, feel free to open an issue or submit a pull request on GitHub. Let's collaborate and make Tic-Cat-Toe even better together!
 
-- add validation logic to tic tac toe class for input
-- create npm package of tic tac toe class
-- add simple CPU
-- add basic metrics for tracking number of wins, loses, and draws
+## License
+
+AI Eye is released under the [MIT License](https://opensource.org/licenses/MIT). You can find the details in the [LICENSE](LICENSE) file.

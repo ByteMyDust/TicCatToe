@@ -16,7 +16,7 @@ export default class Game extends Phaser.Scene {
   private popupButton: PopUpButton;
   private formButton: formButton;
   private buttons: [Button, Button, RunawayButton];
-  private catpaw : CatPaw
+  private catpaw: CatPaw
   private isTweenOn: Boolean
   private catpawTweenOn: Phaser.Tweens.Tween
   private catpawTweenOff: Phaser.Tweens.Tween
@@ -178,7 +178,7 @@ export default class Game extends Phaser.Scene {
     })
 
     this.isTweenOn = false;
-    this.catpaw = new CatPaw({scene: this, x:100, y: 1000}) // update this so that its calculated. 
+    this.catpaw = new CatPaw({ scene: this, x: 100, y: 1000 }) // update this so that its calculated. 
     this.catpaw.setOrigin(0.5, 0)
   }
 
@@ -193,14 +193,14 @@ export default class Game extends Phaser.Scene {
         targets: this.catpaw,
         y: this.buttons[this.curButtonIdx].y,
         x: this.buttons[this.curButtonIdx].x,
-        duration: 1000, 
+        duration: 1000,
         ease: 'Linear',
         paused: true,
         onComplete: () => {
           this.catpawTweenOff.play()
         }
       })
-  
+
       this.catpawTweenOff = this.tweens.add({
         targets: this.catpaw,
         y: 1000,

@@ -16,11 +16,11 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
 
         this.clicked = false
     }
-    getClicked() {return this.clicked}
-    
-    clickup(){
-        if (this.active){
-            this.clicked = false 
+    getClicked() { return this.clicked }
+
+    clickup() {
+        if (this.active) {
+            this.clicked = false
         }
     }
     //on 
@@ -31,13 +31,13 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
         }
 
     }
-    toggleActive(){
+    toggleActive() {
         this.active = !this.active
         this.alpha = !this.alpha;
     }
     update(...args: any[]): void {
         // this.x += 1;
-        if (this.active){
+        if (this.active) {
             this.alpha = 1;
 
         } else {
