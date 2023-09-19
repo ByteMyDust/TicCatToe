@@ -56,4 +56,4 @@ We welcome contributions to Tic-Cat-Toe! If you have any ideas, improvements, or
 
 ## License
 
-AI Eye is released under the [MIT License](https://opensource.org/licenses/MIT). You can find the details in the [LICENSE](LICENSE) file.
+Tic-Cat-Toe is released under the [MIT License](https://opensource.org/licenses/MIT). You can find the details in the [LICENSE](LICENSE) file.
