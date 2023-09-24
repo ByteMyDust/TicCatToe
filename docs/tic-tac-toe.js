@@ -1,0 +1,196 @@
+import * as Phaser from 'phaser';
+var Player;
+(function (Player) {
+    Player["X"] = "X";
+    Player["O"] = "O";
+})(Player || (Player = {}));
+const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
+export default class TicTacToe extends Phaser.GameObjects.Graphics {
+    #board = [];
+    #currentPlayerTurn = Player.X;
+    #gameWinner = undefined;
+    #isGameOver = false;
+    scene;
+    #playerTurnTextGameObject;
+    selectedPiece;
+    allSelectedPieces;
+    // public scale: number;
+    pieceSize;
+    constructor(scene) {
+        super(scene);
+        scene.add.existing(this);
+        this.pieceSize = 96;
+        this.x = screen.width / 2 - this.pieceSize * 2;
+        this.y = screen.height / 2 - this.pieceSize * 2.5;
+        // this.scale = 0.5
+        this.scene = scene;
+        this.selectedPiece = [];
+        this.allSelectedPieces = new Set();
+        this.#initializeBoard();
+    }
+    create() {
+        // this.scene.add
+        //   .text(240, 50, 'Tic-Tac-Toe', {
+        //     color: 'purple',
+        //     fontFamily: 'Verdana',
+        //     fontSize: '42px',
+        //   })
+        //   .setOrigin(0.5);
+        this.#playerTurnTextGameObject = this.scene.add
+            .text(this.x + 2 * this.pieceSize, this.y + 4.5 * this.pieceSize, 'X turn', {
+            color: 'white',
+            fontFamily: 'Verdana',
+            fontSize: '22px',
+        })
+            .setOrigin(0.5);
+        this.lineStyle(6, 0xffffff);
+        //left vertical
+        this.lineBetween(this.pieceSize * 5 / 4, 0, this.pieceSize * 5 / 4, this.pieceSize * 4);
+        //right vertical
+        this.lineBetween(this.pieceSize * 11 / 4, 0, this.pieceSize * 11 / 4, this.pieceSize * 4);
+        //top horizontal
+        this.lineBetween(0, this.pieceSize * 5 / 4, this.pieceSize * 4, this.pieceSize * 5 / 4);
+        //bottom horizontal
+        this.lineBetween(0, this.pieceSize * 11 / 4, this.pieceSize * 4, this.pieceSize * 11 / 4);
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                this.#addGamePiece(i, j);
+            }
+        }
+    }
+    update(submitClicked) {
+        if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)) {
+            this.selectPiece(this.selectedPiece[0], this.selectedPiece[1], this.selectedPiece[2]);
+            this.allSelectedPieces.add(this.selectedPiece);
+            this.selectedPiece = [];
+        }
+    }
+    click(piece, x, y) {
+        this.selectedPiece = [piece, x, y];
+        // this.selectPiece(piece,x,y)
+    }
+    selectPiece(piece, x, y) {
+        if (this.isGameOver) {
+            return;
+        }
+        const currentPlayer = this.currentPlayerTurn;
+        this.makeMove(x, y);
+        if (currentPlayer === 'X') {
+            piece.setFrame(0);
+        }
+        else {
+            piece.setFrame(1);
+        }
+        if (this.isGameOver && this.gameWinner !== 'DRAW') {
+            this.#playerTurnTextGameObject.setText(`${currentPlayer} Won!!`);
+            this.scene.scene.start('End');
+            console.log("Clicked");
+            return;
+        }
+        if (this.isGameOver) {
+            this.#playerTurnTextGameObject.setText(this.gameWinner);
+            this.scene.scene.start('End');
+            console.log("Clicked");
+            return;
+        }
+        this.#playerTurnTextGameObject.setText(`${this.currentPlayerTurn} turn`);
+    }
+    #addGamePiece(x, y) {
+        const pieceSize = 96;
+        const xPos = this.x + ((pieceSize + pieceSize / 2) * x);
+        const yPos = this.y + ((pieceSize + pieceSize / 2) * y);
+        const piece = this.scene.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0).setInteractive();
+        piece.once(Phaser.Input.Events.POINTER_DOWN, () => this.click(piece, x, y));
+    }
+    get currentPlayerTurn() {
+        return this.#currentPlayerTurn;
+    }
+    get isGameOver() {
+        return this.#isGameOver;
+    }
+    get gameWinner() {
+        return this.#gameWinner;
+    }
+    makeMove(x, y) {
+        if (this.#board[x][y] !== '') {
+            return;
+        }
+        if (this.#currentPlayerTurn === Player.O) {
+            this.#board[x][y] = Player.O;
+        }
+        else {
+            this.#board[x][y] = Player.X;
+        }
+        if (this.#currentPlayerTurn === Player.O) {
+            this.#currentPlayerTurn = Player.X;
+        }
+        else {
+            this.#currentPlayerTurn = Player.O;
+        }
+        this.#checkForGameEnd();
+    }
+    #checkForGameEnd() {
+        if (this.#board[0][0] !== '' &&
+            this.#board[0][0] === this.#board[0][1] &&
+            this.#board[0][0] === this.#board[0][2]) {
+            this.#gameWinner = this.#board[0][0];
+        }
+        else if (this.#board[1][0] !== '' &&
+            this.#board[1][0] === this.#board[1][1] &&
+            this.#board[1][0] === this.#board[1][2]) {
+            this.#gameWinner = this.#board[1][0];
+        }
+        else if (this.#board[2][0] !== '' &&
+            this.#board[2][0] === this.#board[2][1] &&
+            this.#board[2][0] === this.#board[2][2]) {
+            this.#gameWinner = this.#board[2][0];
+        }
+        else if (this.#board[0][0] !== '' &&
+            this.#board[0][0] === this.#board[1][0] &&
+            this.#board[0][0] === this.#board[2][0]) {
+            this.#gameWinner = this.#board[0][0];
+        }
+        else if (this.#board[0][1] !== '' &&
+            this.#board[0][1] === this.#board[1][1] &&
+            this.#board[0][1] === this.#board[2][1]) {
+            this.#gameWinner = this.#board[0][1];
+        }
+        else if (this.#board[0][2] !== '' &&
+            this.#board[0][2] === this.#board[1][2] &&
+            this.#board[0][2] === this.#board[2][2]) {
+            this.#gameWinner = this.#board[0][2];
+        }
+        else if (this.#board[0][0] !== '' &&
+            this.#board[0][0] === this.#board[1][1] &&
+            this.#board[0][0] === this.#board[2][2]) {
+            this.#gameWinner = this.#board[0][0];
+        }
+        else if (this.#board[0][2] !== '' &&
+            this.#board[0][2] === this.#board[1][1] &&
+            this.#board[0][2] === this.#board[2][0]) {
+            this.#gameWinner = this.#board[0][2];
+        }
+        if (this.#gameWinner !== undefined) {
+            this.#isGameOver = true;
+            return;
+        }
+        const isBoardFilled = this.#board.every((row) => row.every((cell) => cell !== ''));
+        if (isBoardFilled) {
+            this.#isGameOver = true;
+            this.#gameWinner = 'DRAW';
+        }
+    }
+    #initializeBoard() {
+        this.#board = [];
+        for (let i = 0; i < 3; i += 1) {
+            this.#board.push([]);
+            for (let j = 0; j < 3; j += 1) {
+                this.#board[i].push('');
+            }
+        }
+        this.#currentPlayerTurn = Player.X;
+        this.#gameWinner = undefined;
+        this.#isGameOver = false;
+    }
+}
+//# sourceMappingURL=tic-tac-toe.js.map
