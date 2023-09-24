@@ -33,7 +33,7 @@ export class Button extends Phaser.Physics.Arcade.Sprite {
     }
     toggleActive() {
         this.active = !this.active
-        this.alpha = !this.alpha;
+        // this.alpha = !this.alpha;
     }
     update(...args: any[]): void {
         // this.x += 1;

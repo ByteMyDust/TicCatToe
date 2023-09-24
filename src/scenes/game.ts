@@ -10,18 +10,18 @@ const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 
 export default class Game extends Phaser.Scene {
-  private ticTacToe: TicTacToe;
+  private ticTacToe!: TicTacToe;
   // private button: Button;
-  private runawayButton: RunawayButton;
-  private popupButton: PopUpButton;
-  private formButton: formButton;
-  private buttons: [Button, Button, RunawayButton];
-  private catpaw: CatPaw
-  private isTweenOn: Boolean
-  private catpawTweenOn: Phaser.Tweens.Tween
-  private catpawTweenOff: Phaser.Tweens.Tween
+  private runawayButton!: RunawayButton;
+  private popupButton!: PopUpButton;
+  private formButton!: formButton;
+  private buttons!: [Button, Button, RunawayButton];
+  private catpaw!: CatPaw
+  private isTweenOn!: Boolean
+  private catpawTweenOn!: Phaser.Tweens.Tween
+  private catpawTweenOff!: Phaser.Tweens.Tween
 
-  private curButtonIdx: number;
+  private curButtonIdx!: number;
 
 
   constructor() {
@@ -71,7 +71,7 @@ export default class Game extends Phaser.Scene {
     const hintText = this.add.text(textX, textY, "Click Me for a Hint!", {
       fontFamily: 'Arial',
       fontSize: '24px',
-      fill: '#ffffff', // White text color
+      color: '#ffffff', // White text color
     });
     hintText.setOrigin(0.5); // Center the text horizontally
 
@@ -159,10 +159,10 @@ export default class Game extends Phaser.Scene {
       const textX = textBoxX + textBoxWidth / 2;
       const textY = textBoxY + textBoxHeight / 2;
 
-      text = this.add.text(textX, textY, message, {
+      text = this.add.text(textX, textY, message!, {
         fontFamily: 'Arial',
         fontSize: '32px',
-        fill: '#ffffff', // White text color
+        backgroundColor: '#ffffff', // White text color
         wordWrap: { width: textBoxWidth - 40 }, // Wrap text within the hint box with some padding
         align: 'center', // Center-align the text
       });
