@@ -7,11 +7,11 @@ export default class Start extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('logo', 'public/assets/images/logo.png');
-        this.load.image('start-button', 'public/assets/images/start_button.png');
-        this.load.glsl('stars', 'public/assets/shaders/starfields.glsl.js');
-        this.load.audio('yeah-boy', 'public/assets/sounds/yeah-boy.mp3');
-        this.load.audio('soundtrack', 'public/assets/sounds/soundtrack.mp3');
+        this.load.image('logo', 'assets/images/logo.png');
+        this.load.image('start-button', 'assets/images/start_button.png');
+        this.load.glsl('stars', 'assets/shaders/starfields.glsl.js');
+        this.load.audio('yeah-boy', 'assets/sounds/yeah-boy.mp3');
+        this.load.audio('soundtrack', 'assets/sounds/soundtrack.mp3');
     }
 
     create() {
