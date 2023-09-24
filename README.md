@@ -1,6 +1,8 @@
-# Tic-Cat-Toe - A Memified Cat-Themed TicTacToe
+# TicCatToe - A Memified Cat-Themed TicTacToe
 
-Tic-Cat-Toe is a fun and quirky implementation of the classic Tic-Tac-Toe game, featuring adorable cat-themed graphics and an entertaining twist on the traditional gameplay. This project is built using PhaserJS and TypeScript.
+TicCatToe is a fun and quirky implementation of the classic Tic-Tac-Toe game, featuring adorable cat-themed graphics and an entertaining twist on the traditional gameplay. This project is built using TypeScript and PhaserJS.
+
+Try it out here: https://bytemydust.github.io/TicCatToe
 
 ## Purpose
 
@@ -13,7 +15,9 @@ The judging criteria were:
 - Is it the Least viable product for the real world?
 - Points for most comedic!
 
-## Requirements
+## Running Locally
+
+### Requirements
 
 - [Yarn](https://yarnpkg.com/)
 
@@ -21,7 +25,7 @@ The judging criteria were:
 
 1. Clone the repository to your local machine:
 ```
-   git clone https://github.com/ByteMyDust/TicCatToe.git
+git clone https://github.com/ByteMyDust/TicCatToe.git
 ```
 
 2. Navigate to the project directory:
@@ -42,7 +46,7 @@ yarn start
 
 6. Turn up the volume and have fun getting trolled!
 
-# Team
+## Team
 
 - [Nandan Ramesh](https://github.com/Nandan-18)
 - [Craig Lobo](https://github.com/craiglobo1)
@@ -52,8 +56,8 @@ yarn start
 
 ## Contributing
 
-We welcome contributions to Tic-Cat-Toe! If you have any ideas, improvements, or bug fixes, feel free to open an issue or submit a pull request on GitHub. Let's collaborate and make Tic-Cat-Toe even better together!
+We welcome contributions to TicCatToe! If you have any ideas, improvements, or bug fixes, feel free to open an issue or submit a pull request on GitHub. Let's collaborate and make TicCatToe even better together!
 
 ## License
 
-Tic-Cat-Toe is released under the [MIT License](https://opensource.org/licenses/MIT). You can find the details in the [LICENSE](LICENSE) file.
+TicCatToe is released under the [MIT License](https://opensource.org/licenses/MIT). You can find the details in the [LICENSE](LICENSE) file.
