@@ -71,7 +71,7 @@ export default class TicTacToe extends Phaser.GameObjects.Graphics {
   }
   update(submitClicked: boolean) {
     if (this.selectedPiece.length !== 0 && submitClicked && !this.allSelectedPieces.has(this.selectedPiece)) {
-      this.selectPiece(...this.selectedPiece)
+      this.selectPiece(this.selectedPiece[0], this.selectedPiece[1], this.selectedPiece[2])
       this.allSelectedPieces.add(this.selectedPiece)
       this.selectedPiece = []
     }
