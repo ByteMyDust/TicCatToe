@@ -1,7 +1,7 @@
 {
 	"extends": "@devshareacademy/tsconfig/tsconfig.json",
 	"compilerOptions": {
-		"outDir": "dist",
+		"outDir": "docs",
 		"typeRoots": [
       "node_modules/@types"
     ]
