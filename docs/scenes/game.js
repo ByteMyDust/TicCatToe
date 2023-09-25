@@ -133,12 +133,14 @@ export default class Game extends Phaser.Scene {
             // Create the text to display inside the hint box
             const randomnum = this.getRandomNum(1, 50);
             const message = gameTipsMap.get(Math.floor(randomnum));
+            console.log(message);
             // Calculate text position to center it within the hint box
             const textX = textBoxX + textBoxWidth / 2;
             const textY = textBoxY + textBoxHeight / 2;
             text = this.add.text(textX, textY, message, {
                 fontFamily: 'Arial',
                 fontSize: '32px',
+                color: '#000000',
                 backgroundColor: '#ffffff',
                 wordWrap: { width: textBoxWidth - 40 },
                 align: 'center', // Center-align the text
